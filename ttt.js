@@ -63,3 +63,7 @@ const endGame=()=>{
     //update stats
 }
 
+const calculate = () =>{
+    
+}
+
