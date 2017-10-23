@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <style>
+        body {
+            color: black;
+            font-family: 'Nunito Semibold';
+            text-align: center;
+        }
+
+        .content {
+            padding-top: 150px;
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(60px, auto);
+            grid-gap: 10px;
+            max-width: 460px;
+            max-height: auto;
+            margin: 0 auto;
+            position: relative;
+            align-items: stretch;
+            align-content: start;
+        }
+
+        .content div {
+            background: #3bbced;
+            padding: 30px;
+        }
+
+        .content div:nth-child(even) {
+            background: #777;
+            
+        }
+
+        header {
+            grid-column: 2 / 5;
+            font-family: 'Press Start 2P';
+        }
+
+        aside {
+            grid-row: 2 / 5;
+            text-align: left;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+            font-family: 'VT323', monospace;
+            font-size: 60px;
+        }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+
 </head>
+
 <body>
-    
+
+    <div class="content" id="btn-parent">
+        <header>Shall we play a game?</header>
+        <aside>
+            <p>Human vs AI</p>
+            <p>AI vs AI</p>
+        </aside>
+        <div class="btn" id="b0"></div>
+        <div class="btn" id="b1"></div>
+        <div class="btn" id="b2"></div>
+        <div class="btn" id="b3"></div>
+        <div class="btn" id="b4"></div>
+        <div class="btn" id="b5"></div>
+        <div class="btn" id="b6"></div>
+        <div class="btn" id="b7"></div>
+        <div class="btn" id="b8"></div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js "></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+
+    <script src="ttt.js"></script>
 </body>
+
 </html>
