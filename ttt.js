@@ -15,7 +15,7 @@ const boardLen = 9;
 
 function main(e) {
     // console.log(e.target.id);
-    markBoard(e.target.id);
+    markBoard(e.target.id);   
 }
 
 const markBoard = (id) => {
@@ -34,9 +34,14 @@ const ai = () => {
     let idx = arr[Math.floor(Math.random() * arr.length)];
     let id = 'b'.concat(idx);
 
-    if (document.getElementById(id).innerHTML === "") {
-        document.getElementById(id).innerHTML = "O";
-        updateBoard(id);
+    if (arr.length !== 0) {
+        if (document.getElementById(id).innerHTML === "") {
+            document.getElementById(id).innerHTML = "O";
+            updateBoard(id);
+        }
+    }
+    else{
+        endGame();
     }
 }
 
@@ -51,5 +56,10 @@ const updateBoard = (id) => {
             }
         }
     });
+}
+
+const endGame=()=>{
+    //end the game and restart the game
+    //update stats
 }
 
