@@ -12,6 +12,7 @@ let tmpBoard = board.slice(0); //make a copy for ai
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const boardLen = 9;
+let winner = "";
 
 function main(e) {
     // console.log(e.target.id);
@@ -20,13 +21,15 @@ function main(e) {
 
 const markBoard = (id) => {
     human(id);
-    ai();
+    //ai();
+
 }
 
 const human = (id) => {
     if (document.getElementById(id).innerHTML === "") {
         document.getElementById(id).innerHTML = "x";
         updateBoard(id);
+        calculate();
     }
 }
 
@@ -64,6 +67,19 @@ const endGame=()=>{
 }
 
 const calculate = () =>{
-    
+    if(board[0]['b0'] === board[1]['b1'] && board[1]['b1'] === board[2]['b2']){
+        setWinner(board[0]['b0']);       
+        setWinnerColor([0, 1, 2]);
+
+    }
 }
 
+const setWinner = (winSymbol)=>{
+    winner = winSymbol;
+}
+
+const setWinnerColor = (arr)=>{
+    for (var i = 0; i< arr.length; i++){
+        document.getElementById(`b${i}`).style.color = '#ff0000';
+    }
+}
