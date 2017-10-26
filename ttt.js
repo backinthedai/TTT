@@ -1,6 +1,7 @@
 
 let humanScored = document.getElementById("human");
 let aiScored = document.getElementById("ai");
+let drawScored = document.getElementById("draw");
 
 let btnParent = document.getElementById("btn-parent");
 btnParent.addEventListener("click", main, false);
@@ -40,6 +41,8 @@ const markBoard = (id) => {
         if (arr.length === 0) {
             console.log("Draw");
             delay = setTimeout(restartGame, waitTime);
+            let d = +drawScored.innerHTML;
+            drawScored.innerHTML = `${d+1}`;
         }
     }   
 }
