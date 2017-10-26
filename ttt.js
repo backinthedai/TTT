@@ -137,6 +137,6 @@ const calculate = () => {
 
 const setWinnerColor = (arr) => {
     for (var i = 0; i < arr.length; i++) {
-        document.getElementById(`b${arr[i]}`).style.color = '#700303';
+        document.getElementById(`b${arr[i]}`).style.color = '#ca0707';
     }
 }
