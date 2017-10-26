@@ -1,4 +1,7 @@
 
+let humanScored = document.getElementById("human");
+let aiScored = document.getElementById("ai");
+
 let btnParent = document.getElementById("btn-parent");
 btnParent.addEventListener("click", main, false);
 
@@ -24,10 +27,14 @@ const markBoard = (id) => {
     if (human(id)) {
         console.log("Human is Winner");
         delay = setTimeout(restartGame, waitTime);
+        let h = +humanScored.innerHTML;
+        humanScored.innerHTML = `${h+1}`;
     }
     else if (ai()) {
         console.log("AI is Winner");
         delay = setTimeout(restartGame, waitTime);
+        let a = +aiScored.innerHTML;
+        aiScored.innerHTML = `${a+1}`;
     }
     else{
         if (arr.length === 0) {
