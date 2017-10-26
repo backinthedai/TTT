@@ -13,7 +13,7 @@ let board = [
 ];
 
 let tmpBoard = board.slice(0); //make a copy for ai
-let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let availSports = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 let delay;  
 let waitTime = 2000;
 
@@ -38,7 +38,7 @@ const markBoard = (id) => {
         aiScored.innerHTML = `${a+1}`;
     }
     else{
-        if (arr.length === 0) {
+        if (availSports.length === 0) {
             console.log("Draw");
             delay = setTimeout(restartGame, waitTime);
             let d = +drawScored.innerHTML;
@@ -57,16 +57,16 @@ const human = (id) => {
 }
 
 const ai = () => {
-    let idx = arr[Math.floor(Math.random() * arr.length)];
+    let idx = availSports[Math.floor(Math.random() * availSports.length)];
     let id = 'b'.concat(idx);
 
-    if (arr.length !== 0) {
+    if (availSports.length !== 0) {
         if (document.getElementById(id).innerHTML === "") {
             document.getElementById(id).innerHTML = "O";
             updateBoard(id);
             return calculate();
         }
-    }
+    }  
 }
 
 const updateBoard = (id) => {
@@ -76,7 +76,7 @@ const updateBoard = (id) => {
                 eachObj[key] = document.getElementById(id).innerHTML;
                 let idx = tmpBoard.indexOf(eachObj);
                 tmpBoard.splice(idx, 1);
-                arr.splice(idx, 1);
+                availSports.splice(idx, 1);
             }
         }
     });
@@ -90,11 +90,11 @@ const restartGame = () => {
         { 'b6': "" }, { 'b7': "" }, { 'b8': "" }
     ];
     tmpBoard = board.slice(0); //make a copy for ai
-    arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    availSports = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
     for (let i = 0; i < 9; i++) {
         document.getElementById(`b${i}`).innerHTML = "";
-        document.getElementById(`b${i}`).style.color = '#000';
+        document.getElementById(`b${i}`).style.color = '#f5deb3';
     }
 
     clearTimeout(delay);
@@ -135,8 +135,9 @@ const calculate = () => {
     }
 }
 
-const setWinnerColor = (arr) => {
-    for (var i = 0; i < arr.length; i++) {
-        document.getElementById(`b${arr[i]}`).style.color = '#ca0707';
+const setWinnerColor = (availSports) => {
+    for (var i = 0; i < availSports.length; i++) {
+        document.getElementById(`b${availSports[i]}`).style.color = '#ca0707';
     }
 }
+
