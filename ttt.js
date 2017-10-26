@@ -10,7 +10,8 @@ let board = [
 
 let tmpBoard = board.slice(0); //make a copy for ai
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-let delay;
+let delay;  
+let waitTime = 2000;
 
 const boardLen = 9;
 
@@ -22,16 +23,16 @@ const markBoard = (id) => {
 
     if (human(id)) {
         console.log("Human is Winner");
-        delay = setTimeout(restartGame, 2000);
+        delay = setTimeout(restartGame, waitTime);
     }
     else if (ai()) {
         console.log("AI is Winner");
-        delay = setTimeout(restartGame, 2000);
+        delay = setTimeout(restartGame, waitTime);
     }
     else{
         if (arr.length === 0) {
             console.log("Draw");
-            delay = setTimeout(restartGame, 2000);
+            delay = setTimeout(restartGame, waitTime);
         }
     }   
 }
