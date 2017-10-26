@@ -21,8 +21,7 @@
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: minmax(30px, auto);
             grid-gap: 10px;
-            max-width: 320px;
-            /* max-height: auto; */
+            max-width: 330px;
             margin: 0 auto;
             position: relative;
             text-align: center;
@@ -36,7 +35,6 @@
 
         .content div:nth-child(even) {
             background: #777;
-            
         }
 
         header {
@@ -51,6 +49,20 @@
             font-family: 'VT323', monospace;
             font-size: 40px;
         }
+
+        .info {
+            grid-column: 1 / 4;
+            justify-self: stretch;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            position: relative;
+            text-align: center;
+            justify-items: center;
+        }
+
+        div.nopadding {
+            padding: 0px;
+        }
     </style>
 
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
@@ -62,6 +74,11 @@
 
     <div class="content" id="btn-parent">
         <header>Shall we play a game?</header>
+        <div class="info nopadding">
+            <p id="human"><label>Human</label></p>
+            <p id="ai"><label>AI</label></p>
+        </div>
+
         <div class="btn" id="b0"></div>
         <div class="btn" id="b1"></div>
         <div class="btn" id="b2"></div>
