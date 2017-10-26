@@ -83,7 +83,7 @@ const restartGame = () => {
 
     for (let i = 0; i < 9; i++) {
         document.getElementById(`b${i}`).innerHTML = "";
-        document.getElementById(`b${i}`).style.color = 'rgba(255, 255, 255, 0.5)';
+        document.getElementById(`b${i}`).style.color = '#000';
     }
 
     clearTimeout(delay);
@@ -126,6 +126,6 @@ const calculate = () => {
 
 const setWinnerColor = (arr) => {
     for (var i = 0; i < arr.length; i++) {
-        document.getElementById(`b${arr[i]}`).style.color = '#ff0000';
+        document.getElementById(`b${arr[i]}`).style.color = '#700303';
     }
 }
