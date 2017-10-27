@@ -61,11 +61,11 @@ const ai = () => {
 
     let blocked = [, false];
 
-    if (availSpots.length <= 7) {
+    if (availSpots.length > 1 && availSpots.length <= 7) {
         blocked = blockHuman();
     }
 
-    if (blocked[1] === false){
+    if (blocked[1] === false && availSpots.length > 1){
         let idx = availSpots[Math.floor(Math.random() * availSpots.length)];
         let id = blocked[0] = 'b'.concat(idx);
 
