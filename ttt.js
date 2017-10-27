@@ -24,22 +24,24 @@ function main(e) {
 }
 
 const markBoard = (id) => {
-    console.log(availSpots.length);
-
-        if (human(id)) {
-            console.log("Human is Winner");
-            delay = setTimeout(restartGame, waitTime);
-            let h = +humanScored.innerHTML;
-            humanScored.innerHTML = `${h + 1}`;
-        }
-        else if (ai()) {
-            console.log("AI is Winner");
-            delay = setTimeout(restartGame, waitTime);
-            let a = +aiScored.innerHTML;
-            aiScored.innerHTML = `${a + 1}`;
-        }
-        else {
-            if (availSpots.length === 0) {
+    
+    if (document.getElementById(id).innerHTML !== "") {
+        return;
+    }
+    else if (human(id)) {
+        console.log("Human is Winner");
+        delay = setTimeout(restartGame, waitTime);
+        let h = +humanScored.innerHTML;
+        humanScored.innerHTML = `${h + 1}`;
+    }
+    else if (ai()) {
+        console.log("AI is Winner");
+        delay = setTimeout(restartGame, waitTime);
+        let a = +aiScored.innerHTML;
+        aiScored.innerHTML = `${a + 1}`;
+    }
+    else {
+        if (availSpots.length === 0) {
             console.log("Draw");
             delay = setTimeout(restartGame, waitTime);
             let d = +drawScored.innerHTML;
@@ -58,27 +60,26 @@ const human = (id) => {
 }
 
 const ai = () => {
-
     let blocked = [, false];
 
     if (availSpots.length > 1 && availSpots.length <= 7) {
         blocked = blockHuman();
     }
 
-    if (blocked[1] === false && availSpots.length > 1){
+    if (blocked[1] === false && availSpots.length > 1) {
         let idx = availSpots[Math.floor(Math.random() * availSpots.length)];
         let id = blocked[0] = 'b'.concat(idx);
 
-        if(document.getElementById('b4').innerHTML === ""){
+        if (document.getElementById('b4').innerHTML === "") {
             id = blocked[0] = 'b4';
             document.getElementById(id).innerHTML = "O";
         }
-        
+
         if (document.getElementById(id).innerHTML === "") {
             document.getElementById(id).innerHTML = "O";
         }
     }
-
+    
     updateBoard(blocked[0]);
     return calculateWin();
 }
@@ -87,7 +88,7 @@ const blockHuman = () => {
     let id = "";
     let isFilled = false;
 
-   if ((board[0]['b0'] !== "" && board[0]['b0'] === board[1]['b1']) && board[2]['b2'] === "") {
+    if ((board[0]['b0'] !== "" && board[0]['b0'] === board[1]['b1']) && board[2]['b2'] === "") {
         id = 'b2';
         document.getElementById(id).innerHTML = "O";
         isFilled = true;
