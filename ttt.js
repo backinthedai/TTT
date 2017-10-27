@@ -52,7 +52,7 @@ const human = (id) => {
     if (document.getElementById(id).innerHTML === "") {
         document.getElementById(id).innerHTML = "x";
         updateBoard(id);
-        return calculate();
+        return calculateWin();
     }
     return false;
 }
@@ -69,20 +69,25 @@ const ai = () => {
         let idx = availSpots[Math.floor(Math.random() * availSpots.length)];
         let id = blocked[0] = 'b'.concat(idx);
 
+        if(document.getElementById('b4').innerHTML === ""){
+            id = blocked[0] = 'b4';
+            document.getElementById(id).innerHTML = "O";
+        }
+        
         if (document.getElementById(id).innerHTML === "") {
             document.getElementById(id).innerHTML = "O";
         }
     }
 
     updateBoard(blocked[0]);
-    return calculate();
+    return calculateWin();
 }
 
 const blockHuman = () => {
     let id = "";
     let isFilled = false;
 
-    if ((board[0]['b0'] !== "" && board[0]['b0'] === board[1]['b1']) && board[2]['b2'] === "") {
+   if ((board[0]['b0'] !== "" && board[0]['b0'] === board[1]['b1']) && board[2]['b2'] === "") {
         id = 'b2';
         document.getElementById(id).innerHTML = "O";
         isFilled = true;
@@ -116,7 +121,19 @@ const blockHuman = () => {
         id = 'b0';
         document.getElementById(id).innerHTML = "O";
         isFilled = true;
-        //right side
+        //left side
+    }
+    else if ((board[2]['b2'] !== "" && board[2]['b2'] === board[8]['b8']) && board[5]['b5'] === "") {
+        id = 'b5';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //left side
+    }
+    else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[0]['b0']) && board[3]['b3'] === "") {
+        id = 'b3';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //left side
     }
     else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[4]['b4']) && board[2]['b2'] === "") {
         id = 'b2';
@@ -136,7 +153,6 @@ const blockHuman = () => {
         isFilled = true;
         //top left and right
     }
-
     else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[2]['b2']) && board[4]['b4'] === "") {
         id = 'b4';
         document.getElementById(id).innerHTML = "O";
@@ -154,6 +170,24 @@ const blockHuman = () => {
         document.getElementById(id).innerHTML = "O";
         isFilled = true;
         //Diagonal bottom and top
+    }
+    else if ((board[0]['b0'] !== "" && board[0]['b0'] === board[3]['b3']) && board[6]['b6'] === "") {
+        id = 'b6';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Diagonal bottom and top
+    }
+    else if ((board[8]['b8'] !== "" && board[8]['b8'] === board[7]['b7']) && board[6]['b6'] === "") {
+        id = 'b6';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //bottom right to left
+    }
+    else if ((board[8]['b8'] !== "" && board[8]['b8'] === board[5]['b5']) && board[2]['b2'] === "") {
+        id = 'b2';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //bottom right to left
     }
 
     return [id, isFilled];
@@ -190,7 +224,7 @@ const restartGame = () => {
     clearTimeout(delay);
 }
 
-const calculate = () => {
+const calculateWin = () => {
     if (board[0]['b0'] === board[1]['b1'] && board[1]['b1'] === board[2]['b2'] && board[1]['b1'] !== "") {
         setWinnerColor([0, 1, 2]);
         return true;
