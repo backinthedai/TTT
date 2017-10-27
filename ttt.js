@@ -189,6 +189,12 @@ const blockHuman = () => {
         isFilled = true;
         //bottom right to left
     }
+    else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[7]['b7']) && board[8]['b8'] === "") {
+        id = 'b8';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //bottom right to left
+    }
 
     return [id, isFilled];
 }
