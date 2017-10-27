@@ -13,8 +13,8 @@ let board = [
 ];
 
 let tmpBoard = board.slice(0); //make a copy for ai
-let availSports = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-let delay;  
+let availSpots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let delay;
 let waitTime = 2000;
 
 const boardLen = 9;
@@ -24,27 +24,28 @@ function main(e) {
 }
 
 const markBoard = (id) => {
+    console.log(availSpots.length);
 
-    if (human(id)) {
-        console.log("Human is Winner");
-        delay = setTimeout(restartGame, waitTime);
-        let h = +humanScored.innerHTML;
-        humanScored.innerHTML = `${h+1}`;
-    }
-    else if (ai()) {
-        console.log("AI is Winner");
-        delay = setTimeout(restartGame, waitTime);
-        let a = +aiScored.innerHTML;
-        aiScored.innerHTML = `${a+1}`;
-    }
-    else{
-        if (availSports.length === 0) {
+        if (human(id)) {
+            console.log("Human is Winner");
+            delay = setTimeout(restartGame, waitTime);
+            let h = +humanScored.innerHTML;
+            humanScored.innerHTML = `${h + 1}`;
+        }
+        else if (ai()) {
+            console.log("AI is Winner");
+            delay = setTimeout(restartGame, waitTime);
+            let a = +aiScored.innerHTML;
+            aiScored.innerHTML = `${a + 1}`;
+        }
+        else {
+            if (availSpots.length === 0) {
             console.log("Draw");
             delay = setTimeout(restartGame, waitTime);
             let d = +drawScored.innerHTML;
-            drawScored.innerHTML = `${d+1}`;
+            drawScored.innerHTML = `${d + 1}`;
         }
-    }   
+    }
 }
 
 const human = (id) => {
@@ -57,16 +58,105 @@ const human = (id) => {
 }
 
 const ai = () => {
-    let idx = availSports[Math.floor(Math.random() * availSports.length)];
-    let id = 'b'.concat(idx);
 
-    if (availSports.length !== 0) {
+    let blocked = [, false];
+
+    if (availSpots.length <= 7) {
+        blocked = blockHuman();
+    }
+
+    if (blocked[1] === false){
+        let idx = availSpots[Math.floor(Math.random() * availSpots.length)];
+        let id = blocked[0] = 'b'.concat(idx);
+
         if (document.getElementById(id).innerHTML === "") {
             document.getElementById(id).innerHTML = "O";
-            updateBoard(id);
-            return calculate();
         }
-    }  
+    }
+
+    updateBoard(blocked[0]);
+    return calculate();
+}
+
+const blockHuman = () => {
+    let id = "";
+    let isFilled = false;
+
+    if ((board[0]['b0'] !== "" && board[0]['b0'] === board[1]['b1']) && board[2]['b2'] === "") {
+        id = 'b2';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //top
+    }
+    else if ((board[1]['b1'] !== "" && board[1]['b1'] === board[2]['b2']) && board[0]['b0'] === "") {
+        id = 'b0';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //top
+    }
+    else if ((board[0]['b0'] !== "" && board[0]['b0'] === board[4]['b4']) && board[8]['b8'] === "") {
+        id = 'b8';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //diagonal top left
+    }
+    else if ((board[2]['b2'] !== "" && board[2]['b2'] === board[4]['b4']) && board[6]['b6'] === "") {
+        id = 'b6';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //diagonal top right
+    }
+    else if ((board[2]['b2'] !== "" && board[2]['b2'] === board[5]['b5']) && board[8]['b8'] === "") {
+        id = 'b8';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //right side
+    }
+    else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[3]['b3']) && board[0]['b0'] === "") {
+        id = 'b0';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //right side
+    }
+    else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[4]['b4']) && board[2]['b2'] === "") {
+        id = 'b2';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Diagonal bottom left
+    }
+    else if ((board[3]['b3'] !== "" && board[3]['b3'] === board[4]['b4']) && board[5]['b5'] === "") {
+        id = 'b5';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Diagonal bottom left
+    }
+    else if ((board[0]['b0'] !== "" && board[0]['b0'] === board[2]['b2']) && board[1]['b1'] === "") {
+        id = 'b1';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //top left and right
+    }
+
+    else if ((board[6]['b6'] !== "" && board[6]['b6'] === board[2]['b2']) && board[4]['b4'] === "") {
+        id = 'b4';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Diagonal bottom and top
+    }
+    else if ((board[3]['b3'] !== "" && board[3]['b3'] === board[5]['b5']) && board[4]['b4'] === "") {
+        id = 'b4';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle left and right
+    }
+    else if ((board[1]['b1'] !== "" && board[1]['b1'] === board[7]['b7']) && board[4]['b4'] === "") {
+        id = 'b4';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Diagonal bottom and top
+    }
+
+    return [id, isFilled];
 }
 
 const updateBoard = (id) => {
@@ -76,7 +166,7 @@ const updateBoard = (id) => {
                 eachObj[key] = document.getElementById(id).innerHTML;
                 let idx = tmpBoard.indexOf(eachObj);
                 tmpBoard.splice(idx, 1);
-                availSports.splice(idx, 1);
+                availSpots.splice(idx, 1);
             }
         }
     });
@@ -90,7 +180,7 @@ const restartGame = () => {
         { 'b6': "" }, { 'b7': "" }, { 'b8': "" }
     ];
     tmpBoard = board.slice(0); //make a copy for ai
-    availSports = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    availSpots = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
     for (let i = 0; i < 9; i++) {
         document.getElementById(`b${i}`).innerHTML = "";
@@ -133,6 +223,7 @@ const calculate = () => {
         setWinnerColor([2, 4, 6]);
         return true;
     }
+    return false;
 }
 
 const setWinnerColor = (availSports) => {
