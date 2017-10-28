@@ -196,6 +196,36 @@ const blockHuman = () => {
         isFilled = true;
         //bottom right to left
     }
+    else if ((board[1]['b1'] !== "" && board[1]['b1'] === board[4]['b4']) && board[7]['b7'] === "") {
+        id = 'b7';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle
+    }
+    else if ((board[1]['b1'] !== "" && board[1]['b1'] === board[7]['b7']) && board[4]['b4'] === "") {
+        id = 'b4';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle
+    }
+    else if ((board[7]['b7'] !== "" && board[7]['b7'] === board[4]['b4']) && board[1]['b1'] === "") {
+        id = 'b1';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle
+    }
+    else if ((board[8]['b8'] !== "" && board[8]['b8'] === board[4]['b4']) && board[0]['b0'] === "") {
+        id = 'b0';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle
+    }
+    else if ((board[5]['b5'] !== "" && board[5]['b5'] === board[4]['b4']) && board[3]['b3'] === "") {
+        id = 'b3';
+        document.getElementById(id).innerHTML = "O";
+        isFilled = true;
+        //Middle
+    }
 
     return [id, isFilled];
 }
